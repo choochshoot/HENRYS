@@ -1,0 +1,16 @@
+{
+  "name": "henry-sun-pixel-panel",
+  "version": "1.0.0",
+  "description": "Pixel Art Student Panel for Henry Sun",
+  "main": "index.html",
+  "scripts": {
+    "start": "node henry-updater.js",
+    "download-images": "node download-images.js",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": ["pixel-art", "student", "panel", "henry-sun"],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
