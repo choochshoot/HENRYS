@@ -26,5 +26,33 @@
   {
     "title": "TV MORT",
     "image": "images/achievement-7.png"
+  },
+  {
+    "title": "SOMBRA Y BRILLO EN PERSONAJE ANIMADO",
+    "image": "images/personaje con sombras.png"
+  },
+  {
+    "title": "8 CANONES 1",
+    "image": "images/achievement-8.png"
+  },
+  {
+    "title": "8 CANONES 2",
+    "image": "images/achievement-9.png"
+  },
+  {
+    "title": "8 CANONES 3",
+    "image": "images/achievement-10.png"
+  },
+  {
+    "title": "SKULL",
+    "image": "images/achievement-11.png"
+  },
+  {
+    "title": "CUBEE FISH",
+    "image": "images/cubbefish1.png"
+  },
+  {
+    "title": "CUBBE FISH 2",
+    "image": "images/cubbefish2.png"
   }
 ]
