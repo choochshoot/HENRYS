@@ -21,8 +21,9 @@ if (!fs.existsSync(imagesDir)) {
 }
 
 // Listar imágenes
+// DESPUÉS (mejorado para claridad):
 const imageFiles = fs.readdirSync(imagesDir)
-    .filter(file => file.match(/\.(png|jpg|jpeg|gif)$/i))
+    .filter(file => file.match(/\.(png|jpg|jpeg|gif|webp)$/i))  // ← Agregar webp también
     .sort();
 
 console.log(`📷 Encontradas ${imageFiles.length} imágenes en la carpeta images/:`);
@@ -57,13 +58,13 @@ console.log('✅ student.json creado');
 const achievements = [];
 // Mapeo de nombres de archivo a títulos (si quieres personalizarlo)
 const titleMap = {
-    'achievement-1.png': '3D TV MORT ARMADO',
-    'achievement-2.png': 'ASURADOS Y LÍNEAS',
-    'achievement-3.png': 'DIBUJO LIBRE',
-    'achievement-4.png': 'SELLOS',
-    'achievement-5.png': 'SÓLIDOS PLATÓNICOS',
-    'achievement-6.png': 'SPIDER CUBEE',
-    'achievement-7.png': 'TV MORT'
+    'achievement-1': '3D TV MORT ARMADO',
+    'achievement-2': 'ASURADOS Y LÍNEAS',
+    'achievement-3': 'DIBUJO LIBRE',
+    'achievement-4': 'SELLOS',
+    'achievement-5': 'SÓLIDOS PLATÓNICOS',
+    'achievement-6': 'SPIDER CUBEE',
+    'achievement-7': 'TV MORT'
 };
 
 // Agregar logros basados en las imágenes que tengan "achievement" en el nombre
@@ -82,7 +83,9 @@ if (achievementImages.length === 0) {
 } else {
     console.log(`\n🏆 Encontradas ${achievementImages.length} imágenes de logros:`);
     achievementImages.forEach((img, index) => {
-        const title = titleMap[img] || `LOGRO ${index + 1}`;
+        // DESPUÉS:
+        const baseName = path.parse(img).name; // Obtiene "achievement-1" de "achievement-1.gif"
+        const title = titleMap[baseName] || `LOGRO ${index + 1}`;
         achievements.push({
             title: title,
             image: `images/${img}`

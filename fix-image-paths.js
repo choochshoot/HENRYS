@@ -1,4 +1,4 @@
-// fix-image-paths.js
+// fix-image-paths.js (con soporte para GIFs)
 const fs = require('fs');
 const path = require('path');
 
@@ -32,8 +32,17 @@ const URL_MAPPINGS = {
     // Otras URLs que puedan aparecer
     'https://cdn-icons-png.flaticon.com/512/3135/3135715.png': 'images/coin.png',
     'https://ui-avatars.com/api/?name=Henry+Sun&background=8a6de9&color=fff&size=100&bold=true&font-size=0.5': 'images/henry-avatar.png',
-    'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=200&h=200&fit=crop&crop=face': 'images/preloader.png'
+    'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=200&h=200&fit=crop&crop=face': 'images/preloader.png',
+    
+    // 📍 AGREGAR MAPEOS PARA GIFs AQUÍ (si tienes URLs específicas):
+    // 'https://i.imgur.com/ejemplo.gif': 'images/ejemplo.gif',
 };
+
+// 📍 Función para detectar URLs de imágenes (incluyendo GIFs) en el contenido
+function findImageUrls(content) {
+    const imageUrlPattern = /(https?:\/\/[^"\s]+\.(?:png|jpg|jpeg|gif|webp))/gi;
+    return content.match(imageUrlPattern) || [];
+}
 
 // Función para actualizar un archivo
 function updateFile(filePath, fileType) {
@@ -51,6 +60,19 @@ function updateFile(filePath, fileType) {
             }
         }
         
+        // 📍 Detectar GIFs no mapeados en el contenido
+        const foundUrls = findImageUrls(content);
+        foundUrls.forEach(url => {
+            if (!URL_MAPPINGS[url]) {
+                const ext = path.extname(url).toLowerCase();
+                if (ext === '.gif') {
+                    const filename = path.basename(url);
+                    console.log(`  ⚠️  GIF detectado pero no mapeado: ${filename}`);
+                    console.log(`     Agrega al URL_MAPPINGS: '${url}': 'images/${filename}'`);
+                }
+            }
+        });
+        
         // Si se actualizó, guardar el archivo
         if (updated) {
             fs.writeFileSync(filePath, content, 'utf8');
@@ -62,6 +84,7 @@ function updateFile(filePath, fileType) {
         console.error(`❌ Error al procesar ${filePath}:`, error.message);
     }
 }
+
 
 // Función principal
 function main() {
